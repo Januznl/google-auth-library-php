@@ -208,6 +208,7 @@ class GCECredentials extends CredentialsLoader implements
         }
 
         $tokenUri = self::getTokenUri($serviceAccountIdentity);
+        $tokenUri = $tokenUri . '?format=full';
         if ($scope) {
             if (is_string($scope)) {
                 $scope = explode(' ', $scope);
@@ -215,10 +216,10 @@ class GCECredentials extends CredentialsLoader implements
 
             $scope = implode(',', $scope);
 
-            $tokenUri = $tokenUri . '?scopes=' . $scope;
+            $tokenUri = $tokenUri . '&scopes=' . $scope;
         } elseif ($targetAudience) {
             $tokenUri = self::getIdTokenUri($serviceAccountIdentity);
-            $tokenUri = $tokenUri . '?audience=' . $targetAudience;
+            $tokenUri = $tokenUri . '&audience=' . $targetAudience;
             $this->targetAudience = $targetAudience;
         }
 
